@@ -1,6 +1,10 @@
 # HTML Slide Presentation
 
+
 This project contains HTML-based presentation slides designed for the Wrtn AX Team Intern Assessment.
+
+## 📺 [발표 자료 보러가기 (View Slides)](https://pakyeon.github.io/wrtn-presentation/)
+
 
 ## Project Structure
 
