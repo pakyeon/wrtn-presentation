@@ -1,4 +1,54 @@
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // --- Responsive Slide Scaling ---
+    function fitSlideToScreen() {
+        const slide = document.querySelector('.slide');
+        if (!slide) return;
+
+        const targetWidth = 1280;
+        const targetHeight = 720;
+        
+        // Get available window dimensions
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate scale to fit
+        const scaleX = windowWidth / targetWidth;
+        const scaleY = windowHeight / targetHeight;
+        const scale = Math.min(scaleX, scaleY);
+        
+        // Apply transformation
+        slide.style.transform = `scale(${scale})`;
+        slide.style.transformOrigin = 'top left';
+        
+        // Center the slide
+        const rect = slide.getBoundingClientRect();
+        const scaledWidth = rect.width;
+        const scaledHeight = rect.height;
+        
+        const left = (windowWidth - scaledWidth) / 2;
+        const top = (windowHeight - scaledHeight) / 2;
+        
+        slide.style.position = 'absolute';
+        slide.style.left = `${left}px`;
+        slide.style.top = `${top}px`;
+        
+        // Ensure body background and overflow for presentation mode
+        document.body.style.backgroundColor = '#222'; // Dark background
+        document.body.style.margin = '0';
+        document.body.style.overflow = 'hidden';
+        document.body.style.height = '100vh';
+        document.body.style.width = '100vw';
+    }
+
+    // Initial fit
+    fitSlideToScreen();
+
+    // Re-fit on resize
+    window.addEventListener('resize', fitSlideToScreen);
+    
+    // --- Existing Navigation Logic ---
+
     // Total number of slides - update this if you add more slides
     const totalSlides = 14; 
     
