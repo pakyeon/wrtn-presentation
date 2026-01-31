@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Appendix: 예상 Q&amp;A</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../Pretendard-1.3.9/web/static/pretendard.css" rel="stylesheet"/>
+<style>
+    body { margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; }
+    .slide {
+        width: 1280px; height: 720px; background-color: #FFFFFF; position: relative; overflow: hidden;
+        display: flex; flex-direction: column;
+    }
+    .accent-shape {
+        position: absolute; top: -200px; right: -200px; width: 800px; height: 800px;
+        border-radius: 50%; background: rgba(247, 47, 8, 0.05); z-index: 0;
+    }
+    .content-container {
+        position: relative; z-index: 10; padding: 2rem 3rem; height: 100%; display: flex; flex-direction: column;
+    }
+    .header-bar { margin-bottom: 0.8rem; display: flex; align-items: center; }
+    .main-title {
+        font-family: 'Pretendard', sans-serif; font-weight: 900; font-size: 2.5rem; color: #333333;
+        line-height: 1.2; letter-spacing: -1px; margin-bottom: 0.5rem;
+    }
+    .sub-title { font-size: 1rem; color: #666; font-weight: 500; margin-bottom: 1.2rem; }
+    
+    .qa-grid {
+        display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, auto);
+        gap: 1rem; margin-bottom: 2rem;
+    }
+    
+    .qa-card {
+        background-color: white;
+        border: 1px solid #E2E8F0;
+        border-radius: 12px;
+        padding: 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        display: flex; flex-direction: column;
+        transition: all 0.2s ease;
+        overflow: hidden;
+        height: 100%;
+    }
+    
+    .qa-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 123, 255, 0.1);
+        border-color: #3B82F6;
+    }
+    
+    .card-header {
+        background-color: #F8FAFC;
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid #E2E8F0;
+        display: flex; align-items: center;
+    }
+    .q-badge {
+        background-color: rgba(247, 47, 8, 0.9); color: white; font-weight: 800; font-size: 0.8rem;
+        padding: 0.2rem 0.5rem; border-radius: 6px; margin-right: 0.8rem;
+        min-width: 32px; text-align: center;
+    }
+    .q-text {
+        font-size: 0.9rem; font-weight: 700; color: #1E293B; line-height: 1.3;
+    }
+    
+    .card-body {
+        padding: 0.8rem 1rem;
+        display: flex; align-items: flex-start;
+        flex-grow: 1;
+        background-color: #FFFFFF;
+    }
+    .a-icon {
+        color: #64748B; margin-right: 0.8rem; margin-top: 3px; font-size: 0.9rem;
+    }
+    .a-text {
+        font-size: 0.85rem; color: #475569; line-height: 1.5; font-weight: 400;
+    }
+
+    .text-brand { color: rgba(247, 47, 8, 0.9); }
+    .bg-brand { background-color: rgba(247, 47, 8, 0.9); }
+    .border-brand { border-color: rgba(247, 47, 8, 0.7); }
+    .bg-brand-light { background-color: rgba(247, 47, 8, 0.1); }
+    .text-brand-light { color: rgba(247, 47, 8, 0.6); }
+</style>
+</head>
+<body>
+<div class="slide">
+<div class="accent-shape"></div>
+<div class="content-container">
+<!-- Header -->
+<div class="header-bar">
+<div class="flex items-center text-gray-500">
+<i class="fas fa-question-circle mr-2"></i>
+<span class="font-bold tracking-wide text-sm">APPENDIX</span>
+</div>
+</div>
+<!-- Title -->
+<div>
+<h1 class="main-title">예상 Q&amp;A</h1>
+<p class="sub-title">면접관님의 질문에 대비하여 준비한 예상 질의응답입니다.</p>
+</div>
+<!-- Grid -->
+<div class="qa-grid">
+<!-- Q1 -->
+<div class="qa-card">
+<div class="card-header">
+<span class="q-badge">Q1</span>
+<p class="q-text">RRF, Weighted, WRRF의 차이는?</p>
+</div>
+<div class="card-body">
+<i class="fas fa-comment-dots a-icon"></i>
+<p class="a-text">
+WRRF는 RRF(순위 기반)의 안정성과 Weighted(점수 가중치)의 장점을 결합한 방식입니다.<br/>순위 정보와 모델별 중요도를 모두 반영하여 검색 성능을 극대화합니다.
+</p>
+</div>
+</div>
+<!-- Q2 -->
+<div class="qa-card">
+<div class="card-header">
+<span class="q-badge">Q2</span>
+<p class="q-text">CoT가 성능을 악화시킨 이유는?</p>
+</div>
+<div class="card-body">
+<i class="fas fa-comment-dots a-icon"></i>
+<p class="a-text">
+sLLM(gpt-4o-mini)은 복잡한 CoT 추론 학습이 되어 있지 않아,<br/>프롬프트만으로는 효과가 제한적입니다.<br/>정확한 Context를 제공하는 RAG 품질 향상이 핵심입니다.
+</p>
+</div>
+</div>
+<!-- Q3 -->
+<div class="qa-card">
+<div class="card-header">
+<span class="q-badge">Q3</span>
+<p class="q-text">현재 시스템의 한계 극복 방안은?</p>
+</div>
+<div class="card-body">
+<i class="fas fa-comment-dots a-icon"></i>
+<p class="a-text">
+지식 부족 문제는 전문 서적 기반의 KB 확장으로,<br/>복합 추론 문제는 법률 간 관계를 그래프로 모델링하는<br/>GraphRAG 도입으로 해결할 수 있습니다.
+</p>
+</div>
+</div>
+<!-- Q4 -->
+<div class="qa-card">
+<div class="card-header">
+<span class="q-badge">Q4</span>
+<p class="q-text">WRRF 가중치 0.7:0.3의 근거는?</p>
+</div>
+<div class="card-body">
+<i class="fas fa-comment-dots a-icon"></i>
+<p class="a-text">
+다양한 가중치 조합(0.5:0.5, 0.6:0.4 등)을 실험한 결과,<br/>Vector 검색에 0.7, Keyword 검색에 0.3을 부여했을 때<br/>가장 높은 성능(56.76%)을 기록했습니다.
+</p>
+</div>
+</div>
+<!-- Q5 -->
+<div class="qa-card">
+<div class="card-header">
+<span class="q-badge">Q5</span>
+<p class="q-text">실패한 실험에서 얻은 교훈은?</p>
+</div>
+<div class="card-body">
+<i class="fas fa-comment-dots a-icon"></i>
+<p class="a-text">
+특정 방법론(Web Search, CoT) 자체가 틀린 것이 아니라,<br/>sLLM 환경과 법률 도메인 특성에 맞는<br/>구체적인 적용 방식(Engineering)이 중요함을 확인했습니다.
+</p>
+</div>
+</div>
+<!-- Q6 -->
+<div class="qa-card">
+<div class="card-header">
+<span class="q-badge">Q6</span>
+<p class="q-text">train.csv를 Knowledge Base로 쓴 이유는?</p>
+</div>
+<div class="card-body">
+<i class="fas fa-comment-dots a-icon"></i>
+<p class="a-text">
+데이터 분석 결과 train과 dev 셋 간에 중복 및 유사 문항 패턴이 확인되었으며,<br/>과제의 의도가 이를 RAG 소스로 활용하여 성능을 최적화하는 것이라 판단했습니다.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-4 left-12 text-gray-400 text-xs flex items-center">
+<span class="mr-4">Wrtn AX Team Intern Assignment Presentation</span>
+<span class="border-l border-gray-300 pl-4">Q&A Session</span>
+</div>
+</div>
+<script src="navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>과제 해석 및 가설</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../Pretendard-1.3.9/web/static/pretendard.css" rel="stylesheet"/>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Pretendard', sans-serif;
+    }
+    .slide {
+        width: 1280px;
+        height: 720px;
+        background-color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    .accent-shape {
+        position: absolute;
+        top: -200px;
+        right: -200px;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background: rgba(247, 47, 8, 0.05);
+        z-index: 0;
+    }
+    .content-container {
+        position: relative;
+        z-index: 10;
+        padding: 3rem; /* Reduced from 4rem */
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .header-bar {
+        margin-bottom: 1rem; /* Reduced from 2rem */
+        display: flex;
+        align-items: center;
+    }
+    .main-title {
+        font-family: 'Pretendard', sans-serif;
+        font-weight: 900;
+        font-size: 3rem; /* Reduced from 3.5rem */
+        color: #333333;
+        line-height: 1.2;
+        letter-spacing: -1px;
+    }
+    .highlight {
+        color: rgba(247, 47, 8, 0.9);
+    }
+    
+    /* Left Column Styles */
+    .question-bubble {
+        position: relative;
+        background: #f0f7ff;
+        border-left: 6px solid rgba(247, 47, 8, 0.9);
+        padding: 1.25rem 1.5rem; /* Reduced */
+        border-radius: 0 12px 12px 0;
+        margin-bottom: 1.5rem; /* Reduced */
+    }
+    .question-text {
+        font-size: 1.75rem; /* Reduced from 2rem */
+        font-weight: 700;
+        color: rgba(247, 47, 8, 0.9);
+        font-style: italic;
+        line-height: 1.2;
+    }
+    .hypothesis-box {
+        background-color: #333333;
+        color: #ffffff;
+        padding: 1.5rem; /* Reduced from 2rem */
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    /* Right Column Styles */
+    .clue-card {
+        background-color: #FFFFFF;
+        border: 1px solid #E9ECEF;
+        border-radius: 12px;
+        padding: 1.25rem;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: flex-start;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+        transition: transform 0.2s;
+    }
+    .clue-icon {
+        background-color: rgba(247, 47, 8, 0.1);
+        color: rgba(247, 47, 8, 0.9);
+        width: 40px; /* Reduced from 48px */
+        height: 40px; /* Reduced from 48px */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem; /* Reduced */
+        flex-shrink: 0;
+        font-size: 1rem;
+    }
+    .action-box {
+        background: rgba(247, 47, 8, 0.9); /* Removed gradient */
+        color: white;
+        padding: 1rem 1.5rem; /* Reduced */
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: auto;
+        box-shadow: 0 8px 16px rgba(247, 47, 8, 0.25);
+    }
+
+    .text-brand { color: rgba(247, 47, 8, 0.9); }
+    .bg-brand { background-color: rgba(247, 47, 8, 0.9); }
+    .border-brand { border-color: rgba(247, 47, 8, 0.7); }
+    .bg-brand-light { background-color: rgba(247, 47, 8, 0.1); }
+    .text-brand-light { color: rgba(247, 47, 8, 0.6); }
+</style>
+</head>
+<body>
+<div class="slide">
+<div class="accent-shape"></div>
+<div class="content-container">
+<!-- Header -->
+<div class="header-bar">
+<div class="flex items-center text-gray-500">
+<i class="fas fa-search mr-2"></i>
+<span class="font-medium tracking-wide text-sm">과제 해석 및 접근 전략</span>
+</div>
+</div>
+<!-- Title -->
+<h1 class="main-title mb-6"> <!-- Reduced margin -->
+            과제를 받고 든 생각
+        </h1>
+<div class="flex flex-grow gap-8"> <!-- Reduced gap -->
+<!-- Left Column: Question & Hypothesis -->
+<div class="w-5/12 flex flex-col">
+<div class="question-bubble">
+<p class="text-xs text-gray-500 font-bold mb-1 uppercase tracking-wider">Starting Point</p>
+<p class="question-text">"왜 이런 과제를 주셨을까?"</p>
+</div>
+<div class="hypothesis-box flex-grow">
+<div class="mb-3 text-brand font-bold tracking-wider text-base flex items-center">
+<i class="fas fa-lightbulb mr-2"></i> 저의 생각
+                </div>
+<p class="text-3xl leading-relaxed font-medium">
+                    sLLM기반 Agent 구조의<br/>
+<span class="text-brand font-bold">시스템 성능 개선</span> 능력과<br/>
+<span class="text-white font-bold border-b-2 border-brand pb-1">실무 요구사항 대응 역량</span> 평가
+                </p>
+</div>
+</div>
+<!-- Right Column: Analysis & Action -->
+<div class="w-7/12 flex flex-col">
+<h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center"> <!-- Reduced margin & font -->
+<span class="w-1.5 h-6 bg-brand rounded mr-2"></span>
+                과제 요구사항에서 발견한 단서들
+            </h3>
+<!-- Clue 1 -->
+<div class="clue-card">
+<div class="clue-icon">
+<i class="fas fa-microchip"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-800 text-lg mb-0.5">모델 리소스 제한</h4>
+<p class="text-gray-600 text-xs leading-relaxed mb-1">
+                        gpt-4o-mini, embedding-small만 허용
+</p>
+<p class="text-brand font-medium text-base">
+                        → 제한된 리소스로 최선을 찾아라
+</p>
+</div>
+</div>
+<!-- Clue 2 -->
+<div class="clue-card">
+<div class="clue-icon">
+<i class="fas fa-cogs"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-800 text-lg mb-0.5">실무 수준 요구사항</h4>
+<p class="text-gray-600 text-xs leading-relaxed mb-1">
+                        API DTO 규격, 10분 내 인퍼런스, Docker 서빙
+</p>
+<p class="text-brand font-medium text-base">
+                        → 요구사항을 충족하는 시스템 설계 필요
+</p>
+</div>
+</div>
+<!-- Clue 3 -->
+<div class="clue-card">
+<div class="clue-icon">
+<i class="fas fa-flag-checkered"></i>
+</div>
+<div>
+<h4 class="font-bold text-gray-800 text-lg mb-0.5">Baseline 점수 제공</h4>
+<p class="text-gray-600 text-xs leading-relaxed mb-1">
+                        Dev set 기준 51.58%
+</p>
+<p class="text-brand font-medium text-base">
+                        → 이 점수를 넘어서는 것이 1차 목표
+</p>
+</div>
+</div>
+<!-- Action -->
+<div class="action-box mt-3"> <!-- Reduced margin -->
+<div>
+<p class="text-gray-200 text-xs font-bold mb-0.5 tracking-wide">Action Plan</p>
+<p class="text-lg font-bold">이러한 관점을 중심으로 과제 진행</p>
+</div>
+<div class="bg-white text-brand rounded-full w-10 h-10 flex items-center justify-center shadow-lg text-sm">
+<i class="fas fa-arrow-right"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="navigation.js"></script>
+</body>
+</html>

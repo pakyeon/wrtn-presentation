@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>마무리 요약</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../Pretendard-1.3.9/web/static/pretendard.css" rel="stylesheet"/>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Pretendard', sans-serif;
+    }
+    .slide {
+        width: 1280px;
+        height: 720px;
+        background-color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    /* Background Elements */
+    .accent-shape-top {
+        position: absolute;
+        top: -150px;
+        right: -150px;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: rgba(0, 123, 255, 0.03);
+        z-index: 0;
+    }
+    .accent-shape-bottom {
+        position: absolute;
+        bottom: -200px;
+        left: -100px;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background: rgba(0, 123, 255, 0.02);
+        z-index: 0;
+    }
+
+    .content-container {
+        position: relative;
+        z-index: 10;
+        padding: 2rem 3rem; /* Modified: Reduced padding */
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Header */
+    .header-bar {
+        margin-bottom: 1.5rem; /* Modified: Reduced margin */
+        border-bottom: 2px solid #F3F4F6;
+        padding-bottom: 0.8rem;
+    }
+    .header-label {
+        font-size: 0.9rem;
+        color: rgba(247, 47, 8, 0.9);
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+        display: flex;
+        align-items: center;
+    }
+    .main-title {
+        font-family: 'Pretendard', sans-serif;
+        font-weight: 900;
+        font-size: 2.5rem; /* Modified: Reduced font size */
+        color: #333333;
+        line-height: 1.1;
+    }
+
+    /* Grid Layout */
+    .summary-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 1.2rem; /* Modified: Reduced gap */
+        flex-grow: 1;
+    }
+
+    /* Cards */
+    .summary-card {
+        border-radius: 12px;
+        padding: 1.5rem; /* Modified: Reduced padding */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: transform 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Card 1: Interpretation (Top Left) */
+    .card-interpret {
+        background-color: #FFFFFF;
+        border: 1px solid #E5E7EB;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+    .card-icon {
+        width: 42px; /* Modified: Reduced size */
+        height: 42px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem; /* Modified: Reduced icon size */
+        margin-bottom: 0.8rem; /* Modified: Reduced margin */
+    }
+    .icon-interpret {
+        background-color: #EFF6FF;
+        color: #3B82F6;
+    }
+
+    /* Card 2: Approach (Top Right) */
+    .card-approach {
+        background-color: #FFFFFF;
+        border: 1px solid #E5E7EB;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+    .icon-approach {
+        background-color: #ECFDF5;
+        color: #10B981;
+    }
+
+    /* Card 3: Result (Bottom Left) - Highlighted */
+    .card-result {
+        background-color: rgba(247, 47, 8, 0.9); /* Solid color instead of gradient */
+        color: white;
+        grid-row: 2;
+    }
+    .card-result .card-label {
+        color: rgba(255,255,255,0.8);
+    }
+    .card-result .card-text {
+        color: white;
+    }
+    .icon-result {
+        background-color: rgba(255,255,255,0.2);
+        color: white;
+    }
+
+    /* Card 4: Insight (Bottom Right) */
+    .card-insight {
+        background-color: #F8F9FA;
+        border-left: 6px solid #333333;
+    }
+    .icon-insight {
+        background-color: #E5E7EB;
+        color: #374151;
+    }
+
+    /* Typography inside cards */
+    .card-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6B7280;
+        margin-bottom: 0.3rem;
+    }
+    .card-headline {
+        font-size: 1.3rem; /* Modified: Reduced font size */
+        font-weight: 800;
+        color: #1F2937;
+        margin-bottom: 0.4rem;
+        line-height: 1.25;
+    }
+    .card-text {
+        font-size: 0.95rem; /* Modified: Slightly reduced font size */
+        color: #4B5563;
+        line-height: 1.4;
+    }
+
+    /* Result Specifics */
+    .result-value-container {
+        display: flex;
+        align-items: baseline;
+        margin-top: 0.4rem;
+    }
+    .result-value-big {
+        font-size: 3rem; /* Modified: Reduced size */
+        font-weight: 900;
+        line-height: 1;
+        margin-right: 0.8rem;
+    }
+    .result-value-small {
+        font-size: 1.3rem;
+        font-weight: 500;
+        opacity: 0.9;
+    }
+    .result-badge {
+        background-color: #FFFFFF;
+        color: rgba(247, 47, 8, 0.9);
+        font-weight: 800;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        display: inline-block;
+        margin-bottom: 0.4rem;
+    }
+
+    /* Footer */
+    .footer-note {
+        margin-top: 1rem;
+        text-align: right;
+        font-size: 0.85rem;
+        color: #9CA3AF;
+        font-weight: 500;
+    }
+
+    .text-brand { color: rgba(247, 47, 8, 0.9); }
+    .bg-brand { background-color: rgba(247, 47, 8, 0.9); }
+    .border-brand { border-color: rgba(247, 47, 8, 0.7); }
+    .bg-brand-light { background-color: rgba(247, 47, 8, 0.1); }
+    .text-brand-light { color: rgba(247, 47, 8, 0.6); }
+</style>
+</head>
+<body>
+<div class="slide">
+<div class="accent-shape-top"></div>
+<div class="accent-shape-bottom"></div>
+<div class="content-container">
+<!-- Header -->
+<div class="header-bar">
+<div class="header-label">
+<i class="fas fa-flag-checkered mr-2"></i> Summary &amp; Conclusion
+            </div>
+<h1 class="main-title">마무리 요약</h1>
+</div>
+<!-- Grid Content -->
+<div class="summary-grid">
+<!-- 1. 과제 해석 -->
+<div class="summary-card card-interpret">
+<div class="flex justify-between items-start">
+<div>
+<div class="card-label">01. 과제 해석</div>
+<h2 class="card-headline">엔지니어링 사고력 평가</h2>
+<p class="card-text">
+                            "sLLM기반 Agent 구조의<br/>
+                            시스템 성능 개선 능력과<br/> 실무 요구사항 대응 역량을 평가"
+                        </p>
+</div>
+<div class="card-icon icon-interpret">
+<i class="fas fa-clipboard-check"></i>
+</div>
+</div>
+</div>
+<!-- 2. 접근 방식 -->
+<div class="summary-card card-approach">
+<div class="flex justify-between items-start">
+<div>
+<div class="card-label">02. 접근 방식</div>
+<h2 class="card-headline">가설 - 실험 - 검증</h2>
+<p class="card-text">
+                            가설을 기반한 반본적인 실험</strong>을 통해<br/>
+                            Baseline 이상의 성능을 달성한 조합(Hybrid Search + WRRF)을 도출
+                        </p>
+</div>
+<div class="card-icon icon-approach">
+<i class="fas fa-flask"></i>
+</div>
+</div>
+</div>
+<!-- 3. 최종 성과 (강조) -->
+<div class="summary-card card-result">
+<div class="flex justify-between items-start mb-2">
+<div class="card-label" style="color: rgba(255,255,255,0.9);">03. 최종 성과</div>
+<div class="card-icon icon-result">
+<i class="fas fa-trophy"></i>
+</div>
+</div>
+<div class="result-badge">Baseline 대비 +5.18%p</div>
+<div class="result-value-container">
+<span class="result-value-small mr-2" style="text-decoration: line-through; opacity: 0.6;">51.58%</span>
+<i class="fas fa-arrow-right mr-2" style="font-size: 1.2rem; opacity: 0.8;"></i>
+<span class="result-value-big">56.76%</span>
+</div>
+<p class="card-text mt-2" style="color: rgba(255,255,255,0.9);">
+                        KMMLU Criminal-Law &amp; Law 도메인 정확도 달성
+                    </p>
+</div>
+<!-- 4. 핵심 인사이트 -->
+<div class="summary-card card-insight">
+<div class="flex justify-between items-start">
+<div>
+<div class="card-label">04. 핵심 인사이트</div>
+<h2 class="card-headline">"Back to Basic"</h2>
+<p class="card-text">
+    실패한 방법론(CoT, RAG 등) 자체가 틀린 것이 아닐 수 있다.<br/>
+    하지만 짧은 기간에서는 단순한 구조를 바탕으로,<br/>
+    기본적인 RAG 파이프라인을 구축하고 조정하는 것이 성능 향상을 이끌어냈습니다.
+</p>
+</div>
+<div class="card-icon icon-insight">
+<i class="fas fa-lightbulb"></i>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="footer-note">
+            뤼튼(wrtn) AX팀 Agent Developer 인턴 과제 발표
+        </div>
+</div>
+</div>
+<script src="navigation.js"></script>
+</body>
+</html>

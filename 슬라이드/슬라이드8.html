@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>실패한 실험 - 외부 웹 검색</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../Pretendard-1.3.9/web/static/pretendard.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Pretendard', sans-serif;
+    }
+    .slide {
+        width: 1280px;
+        height: 720px;
+        background-color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    .accent-shape {
+        position: absolute;
+        top: -200px;
+        right: -200px;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background: rgba(247, 47, 8, 0.05);
+        z-index: 0;
+    }
+    .content-container {
+        position: relative;
+        z-index: 10;
+        padding: 3rem 4rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .header-bar {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+    .main-title {
+        font-family: 'Pretendard', sans-serif;
+        font-weight: 900;
+        font-size: 3rem;
+        color: #333333;
+        line-height: 1.2;
+        letter-spacing: -1px;
+        margin-bottom: 0.5rem;
+    }
+    .sub-title {
+        font-size: 1.1rem;
+        color: #666;
+        font-weight: 500;
+        margin-bottom: 2rem;
+    }
+    
+    /* 3-Column Layout */
+    .grid-layout {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr 1fr;
+        gap: 2rem;
+        flex-grow: 1;
+        height: 100%;
+    }
+    
+    /* Panels */
+    .panel {
+        display: flex;
+        flex-direction: column;
+        border-radius: 12px;
+        padding: 1.5rem;
+        height: 100%;
+    }
+    
+    /* Left Panel: Hypothesis */
+    .panel-hypothesis {
+        background-color: #F8F9FA;
+        border-left: 5px solid #6c757d;
+    }
+    .question-box {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+        margin-bottom: 1.5rem;
+        position: relative;
+        flex: 1.5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .quote-icon {
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        background: #6c757d;
+        color: white;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 0.9rem;
+    }
+    
+    /* Center Panel: Result */
+    .panel-result {
+        background-color: white;
+        border: 1px solid #E9ECEF;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        position: relative;
+    }
+    .chart-container {
+        flex-grow: 1;
+        position: relative;
+        width: 100%;
+        min-height: 200px;
+    }
+    
+    /* Right Panel: Analysis */
+    .panel-analysis {
+        background-color: #FFFAFA;
+        border: 1px solid #FECACA;
+        border-left: 5px solid #EF4444;
+    }
+    .reason-item {
+        margin-bottom: 1.2rem;
+        padding-bottom: 1.2rem;
+        border-bottom: 1px dashed #FECACA;
+    }
+    .reason-item:last-child {
+        border-bottom: none;
+    }
+    
+    .panel-header {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .text-highlight {
+        background: rgba(239, 68, 68, 0.1);
+        color: #B91C1C;
+        padding: 0 4px;
+        font-weight: 600;
+    }
+
+    .text-brand { color: rgba(247, 47, 8, 0.9); }
+    .bg-brand { background-color: rgba(247, 47, 8, 0.9); }
+    .border-brand { border-color: rgba(247, 47, 8, 0.7); }
+    .bg-brand-light { background-color: rgba(247, 47, 8, 0.1); }
+    .text-brand-light { color: rgba(247, 47, 8, 0.6); }
+</style>
+</head>
+<body>
+<div class="slide">
+<div class="accent-shape"></div>
+<div class="content-container">
+<!-- Header -->
+<div class="header-bar">
+<div class="flex items-center text-gray-500">
+<i class="fas fa-exclamation-triangle mr-2"></i>
+<span class="font-bold tracking-wide text-sm">FAILED EXPERIMENT ANALYSIS</span>
+</div>
+</div>
+<!-- Title -->
+<div>
+<h1 class="main-title">실패한 실험 ② 외부 웹 검색</h1>
+<p class="sub-title">"최신 법령과 판례를 웹에서 검색하면 성능이 개선될까?" (Tavily API)</p>
+</div>
+<!-- Content Grid -->
+<div class="grid-layout">
+<!-- 1. Hypothesis -->
+<div class="panel panel-hypothesis">
+<div class="panel-header text-gray-600">
+<i class="fas fa-globe mr-2"></i> 가설
+                </div>
+<div class="question-box">
+<div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+<p class="font-bold text-lg text-gray-800 mb-2 mt-2">
+                        외부 검색이 부족한 지식을 <br/>채워줄 수 있지 않을까?
+                    </p>
+<p class="text-sm text-gray-600 leading-relaxed">
+                        "정적인 Knowledge Base의 한계를 넘어, <br/>동적인 웹 검색이 부족한 정보를 <br/>보완해 줄 것이다."
+                    </p>
+</div>
+<div class="bg-brand-light p-6 rounded-lg border border-red-200 flex-1 flex flex-col justify-center">
+<p class="text-sm text-brand font-bold uppercase mb-2"><i class="fas fa-sliders mr-2"></i>실험 설정</p>
+<p class="font-bold text-gray-800 text-sm leading-relaxed">
+                        Tavily API 적용<br/>
+                        기존 Context에 추가하는 방식<br/>
+                    </p>
+</div>
+</div>
+<!-- 2. Result -->
+<div class="panel panel-result">
+<div class="panel-header text-gray-600">
+<i class="fas fa-chart-bar mr-2"></i> 실험 결과
+                </div>
+<div class="chart-container">
+<canvas id="comparisonChart"></canvas>
+</div>
+<div class="mt-4 text-center">
+<div class="inline-block bg-red-100 text-red-600 px-4 py-2 rounded-full font-bold text-lg shadow-sm">
+<i class="fas fa-arrow-down mr-2"></i>2.71%p 하락
+                    </div>
+<p class="text-xs text-gray-500 mt-2">웹 검색을 활성화했더니 성능이 오히려 떨어짐</p>
+</div>
+</div>
+<!-- 3. Analysis -->
+<div class="panel panel-analysis">
+<div class="panel-header text-red-600">
+<i class="fas fa-search-minus mr-2"></i> 왜 실패했을까?
+                </div>
+<div class="flex-grow">
+<div class="reason-item">
+<h4 class="font-bold text-gray-800 text-base mb-1">
+<i class="fas fa-times text-red-400 mr-2"></i>Context 희석
+                        </h4>
+<p class="text-sm text-gray-600 leading-relaxed">
+                            검색된 웹 정보가 중요 Context를<br/>
+                            희석시키고 추론을 방해하는<br/>
+                            <span class="text-highlight">노이즈(Noise)</span>로 작용함
+                        </p>
+</div>
+<div class="reason-item">
+<h4 class="font-bold text-gray-800 text-base mb-1">
+<i class="fas fa-times text-red-400 mr-2"></i>검색 전략 고도화 부족
+                        </h4>
+<p class="text-sm text-gray-600 leading-relaxed">
+                            단순 질문 검색이 아닌, 질문/선택지/Context를<br/>
+                            분석해 <span class="text-highlight">최적 키워드</span>를 추출했어야 함<br/>
+                            (단, Latency/복잡도 증가 예상)
+                        </p>
+</div>
+</div>
+<div class="bg-white p-5 rounded-lg border border-red-200 mt-2 shadow-sm">
+<p class="text-base font-bold text-red-700 uppercase mb-2"><i class="fas fa-check-circle mr-2"></i>결론</p>
+<p class="font-bold text-gray-800 text-base">양질의 내부 데이터가<br/>외부 검색보다 우위</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('comparisonChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Web OFF (Baseline)', 'Web ON (Tavily)'],
+                datasets: [{
+                    label: 'Accuracy (%)',
+                    data: [56.76, 54.05],
+                    backgroundColor: [
+                        'rgba(247, 47, 8, 0.9)', // Existing (Selected) - Brand Color
+                        '#9CA3AF'  // Experiment (Failed/Discarded) - Gray
+                    ],
+                    borderRadius: 8,
+                    barPercentage: 0.6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.raw + '%';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 50,
+                        max: 60,
+                        grid: {
+                            color: '#F3F4F6'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: {
+                                weight: 'bold',
+                                size: 12
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+<script src="navigation.js"></script>
+</body>
+</html>

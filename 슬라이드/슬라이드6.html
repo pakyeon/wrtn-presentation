@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>성공 실험: Hybrid Search</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../Pretendard-1.3.9/web/static/pretendard.css" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f0f0f0;
+        }
+        
+        /* Brand Colors */
+        .text-brand { color: rgba(247, 47, 8, 0.9); }
+        .bg-brand { background-color: rgba(247, 47, 8, 0.9); }
+        .border-brand { border-color: rgba(247, 47, 8, 0.7); }
+        .bg-brand-light { background-color: rgba(247, 47, 8, 0.1); }
+        .text-brand-light { color: #FF9E80; }
+        .slide {
+            width: 1280px;
+            height: 720px;
+            background-color: #FFFFFF;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Background Decoration */
+        .accent-shape {
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            background: rgba(247, 47, 8, 0.05);
+            z-index: 0;
+        }
+
+        /* Header */
+        .header-section {
+            padding: 64px 64px 20px 64px;
+            z-index: 10;
+        }
+        
+        .header-tag {
+            display: inline-flex;
+            align-items: center;
+            color: rgba(247, 47, 8, 0.9); /* Brand */
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            background-color: rgba(247, 47, 8, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .main-title {
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 900;
+            font-size: 3rem;
+            color: #333333;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub-title {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Process Flow */
+        .process-container {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            padding: 40px 64px 20px 64px;
+            flex-grow: 1;
+            z-index: 10;
+            gap: 20px;
+        }
+
+        .step-card {
+            flex: 1;
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            border: 1px solid #E9ECEF;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Step Specific Styles */
+        .step-1 { border-top: 6px solid #9CA3AF; } /* Gray */
+        .step-2 { border-top: 6px solid #F59E0B; } /* Orange/Yellow */
+        .step-3 { border-top: 6px solid rgba(247, 47, 8, 0.9); background-color: rgba(247, 47, 8, 0.05); border-color: rgba(247, 47, 8, 0.3); } /* Brand */
+
+        .step-number {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .step-1 .step-number { color: #6B7280; }
+        .step-2 .step-number { color: #D97706; }
+        .step-3 .step-number { color: rgba(247, 47, 8, 0.9); }
+
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .step-1 .step-icon { background-color: #F3F4F6; color: #4B5563; }
+        .step-2 .step-icon { background-color: #FFFBEB; color: #D97706; }
+        .step-3 .step-icon { background-color: rgba(247, 47, 8, 0.1); color: rgba(247, 47, 8, 0.9); }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .accuracy-box {
+            margin-top: auto;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .step-1 .accuracy-box { background-color: #F3F4F6; }
+        .step-2 .accuracy-box { background-color: #FFFBEB; }
+        .step-3 .accuracy-box { background-color: rgba(247, 47, 8, 0.9); color: white; box-shadow: 0 4px 6px rgba(247, 47, 8, 0.2); }
+
+        .acc-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 4px; display: block; opacity: 0.8; }
+        .acc-value { font-size: 1.8rem; font-weight: 900; line-height: 1; }
+        .acc-diff { font-size: 0.85rem; font-weight: 600; margin-top: 4px; display: block; }
+
+        .step-desc {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        /* Connector Arrow */
+        .connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #CBD5E1;
+            font-size: 1.5rem;
+        }
+
+        /* Bottom Insight Box */
+        .insight-section {
+            padding: 0 64px 64px 64px;
+            z-index: 10;
+        }
+        
+        .insight-box {
+            background-color: #333333;
+            color: white;
+            border-radius: 12px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .insight-box::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background-color: rgba(247, 47, 8, 0.9);
+        }
+
+        .bulb-icon {
+            font-size: 2rem;
+            color: #FFD700;
+            margin-right: 24px;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+        }
+
+        .insight-text h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #E2E8F0;
+        }
+        
+        .insight-text p {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #FFFFFF;
+        }
+
+        .highlight-text {
+            color: #FF9E80;
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide">
+<div class="accent-shape"></div>
+<!-- Header -->
+<div class="header-section">
+<div class="header-tag">
+<i class="fas fa-check-circle mr-2"></i> Success Story
+        </div>
+<h1 class="main-title">성공 실험 ① <span class="text-brand">Hybrid Search</span> 진화</h1>
+<p class="sub-title">검색 전략의 시행착오 끝에 찾아낸 최적의 조합 (From Vector to WRRF)</p>
+</div>
+<!-- 3-Phase Process -->
+<div class="process-container">
+<!-- Step 1 -->
+<div class="step-card step-1">
+<div class="step-number">Phase 01</div>
+<div style="display: flex; align-items: center; margin-bottom: 16px;">
+<div class="step-icon" style="margin-bottom: 0; margin-right: 12px;">
+<i class="fas fa-bullseye"></i>
+</div>
+<h3 class="step-title" style="margin-bottom: 0;">Vector Only</h3>
+</div>
+<p class="step-desc">
+                의미 기반 검색만 사용.<br/>
+                법률 용어의 정확한 매칭보다<br/>
+                맥락적 유사도에 의존.
+            </p>
+<div class="accuracy-box">
+<span class="acc-label text-gray-500">Accuracy</span>
+<span class="acc-value text-gray-700">51.35%</span>
+<span class="acc-diff text-gray-400">Baseline Level</span>
+</div>
+</div>
+<!-- Arrow -->
+<div class="connector">
+<i class="fas fa-chevron-right"></i>
+</div>
+<!-- Step 2 -->
+<div class="step-card step-2">
+<div class="step-number">Phase 02</div>
+<div style="display: flex; align-items: center; margin-bottom: 16px;">
+<div class="step-icon" style="margin-bottom: 0; margin-right: 12px;">
+<i class="fas fa-balance-scale-right"></i>
+</div>
+<h3 class="step-title" style="margin-bottom: 0;">Hybrid Search 적용</h3>
+</div>
+<p class="step-desc">
+                <b>단순 RRF 및 가중합(Weighted)</b> 시도.<br/>
+                오히려 검색 노이즈가 증가하며<br/>
+                성능이 정체되거나 하락함.
+            </p>
+<div class="accuracy-box">
+<span class="acc-label text-yellow-700">Accuracy</span>
+<span class="acc-value text-yellow-700">50.19%</span>
+<span class="acc-diff text-yellow-700"><i class="fas fa-arrow-down mr-1"></i>Performance Drop</span>
+</div>
+</div>
+<!-- Arrow -->
+<div class="connector">
+<i class="fas fa-chevron-right"></i>
+</div>
+<!-- Step 3 -->
+<div class="step-card step-3">
+<div class="step-number">Phase 03 (Final)</div>
+<div style="display: flex; align-items: center; margin-bottom: 16px;">
+<div class="step-icon" style="margin-bottom: 0; margin-right: 12px;">
+<i class="fas fa-trophy"></i>
+</div>
+<h3 class="step-title" style="margin-bottom: 0;">WRRF 적용 및 최적화</h3>
+</div>
+<p class="step-desc">
+<strong>W</strong>eighted <strong>R</strong>eciprocal <strong>R</strong>ank <strong>F</strong>usion 적용.<br/>
+                순위(Rank)와 가중치(0.7/0.3)를<br/>
+                동시에 고려하여 최적화.
+            </p>
+<div class="accuracy-box">
+<span class="acc-label text-blue-100">Accuracy</span>
+<span class="acc-value">56.76%</span>
+<span class="acc-diff text-white"><i class="fas fa-arrow-up mr-1"></i>+5.18%p Boost</span>
+</div>
+</div>
+</div>
+<!-- Insight Footer -->
+<div class="insight-section">
+<div class="insight-box">
+<i class="fas fa-lightbulb bulb-icon"></i>
+<div class="insight-text">
+<h3>CORE LESSON</h3>
+<p>
+                    단순 결합이 아닌, <span class="highlight-text">순위(Rank)의 안정성</span>과 <span class="highlight-text">가중치(Weight)의 유연성</span>을 결합했을 때 시너지가 발생했습니다.
+                </p>
+</div>
+</div>
+</div>
+</div>
+<script src="navigation.js"></script>
+</body>
+</html>

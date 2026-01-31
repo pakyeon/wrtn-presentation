@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>초기 설계 의사결정</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../Pretendard-1.3.9/web/static/pretendard.css" rel="stylesheet"/>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Pretendard', sans-serif;
+    }
+    .slide {
+        width: 1280px;
+        height: 720px;
+        background-color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    .accent-shape {
+        position: absolute;
+        top: -200px;
+        right: -200px;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background: rgba(247, 47, 8, 0.05);
+        z-index: 0;
+    }
+    .content-container {
+        position: relative;
+        z-index: 10;
+        padding: 2.5rem 4rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .header-bar {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+    }
+    .main-title {
+        font-family: 'Pretendard', sans-serif;
+        font-weight: 900;
+        font-size: 2.5rem;
+        color: #333333;
+        line-height: 1.2;
+        letter-spacing: -1px;
+        margin-bottom: 1rem;
+        flex-shrink: 0;
+    }
+    .highlight {
+        color: rgba(247, 47, 8, 0.9);
+    }
+    
+    /* Content Boxes */
+    .analysis-box {
+        background-color: #F8F9FA;
+        border-radius: 12px;
+        padding: 1rem;
+        height: 100%;
+        border: 1px solid #E9ECEF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .hypothesis-container {
+        background: white;
+        border-left: 6px solid rgba(247, 47, 8, 0.9);
+        padding: 1rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        border-radius: 0 12px 12px 0;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+    .quote-icon {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+        font-size: 2rem;
+        color: rgba(247, 47, 8, 0.1);
+    }
+    
+    .rationale-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 0.9rem;
+        padding: 0.9rem;
+        background-color: #fff;
+        border-radius: 8px;
+        border: 1px solid #eee;
+    }
+    .rationale-num {
+        background-color: rgba(247, 47, 8, 0.9);
+        color: white;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.7rem;
+        margin-right: 10px;
+        flex-shrink: 0;
+        margin-top: 3px;
+    }
+    
+    /* Flow Diagram */
+    .flow-wrapper {
+        margin-top: auto;
+        padding-top: 0.5rem;
+        flex-shrink: 0;
+    }
+    .flow-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(247, 47, 8, 0.03);
+        border-radius: 12px;
+        padding: 1rem;
+        border: 1px dashed rgba(247, 47, 8, 0.9);
+    }
+    .flow-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+    }
+    .step-icon {
+        width: 40px;
+        height: 40px;
+        background: white;
+        border: 2px solid rgba(247, 47, 8, 0.9);
+        color: rgba(247, 47, 8, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        margin-bottom: 6px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .step-text {
+        font-weight: 700;
+        color: #333;
+        font-size: 0.8rem;
+    }
+    .step-sub {
+        font-size: 0.7rem;
+        color: #666;
+    }
+    .flow-arrow {
+        flex-grow: 1;
+        height: 2px;
+        background-color: #ccc;
+        margin: 0 10px;
+        position: relative;
+        max-width: 60px;
+    }
+    .flow-arrow::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: -4px;
+        width: 0;
+        height: 0;
+        border-left: 6px solid #ccc;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+    }
+    
+    .check-badge {
+        display: inline-flex;
+        align-items: center;
+        background-color: rgba(247, 47, 8, 0.1);
+        color: rgba(247, 47, 8, 0.9);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+        border: 1px solid rgba(247, 47, 8, 0.2);
+    }
+    
+    /* Text sizing adjustments for compact layout */
+    .text-compact-lg { font-size: 1.125rem; }
+    .text-compact-base { font-size: 0.95rem; }
+    .text-compact-sm { font-size: 0.85rem; }
+    .text-compact-xs { font-size: 0.75rem; }
+    
+    .circle-node {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .text-brand { color: rgba(247, 47, 8, 0.9); }
+    .bg-brand { background-color: rgba(247, 47, 8, 0.9); }
+    .border-brand { border-color: rgba(247, 47, 8, 0.7); }
+    .bg-brand-light { background-color: rgba(247, 47, 8, 0.1); }
+    .text-brand-light { color: rgba(247, 47, 8, 0.6); }
+</style>
+</head>
+<body>
+<div class="slide">
+<div class="accent-shape"></div>
+<div class="content-container">
+<!-- Header -->
+<div class="header-bar">
+<div class="flex items-center text-brand">
+<i class="fas fa-lightbulb mr-2"></i>
+<span class="font-bold tracking-wide text-sm">DESIGN DECISION</span>
+</div>
+</div>
+<!-- Title -->
+<h1 class="main-title">초기 설계 의사결정</h1>
+<div class="flex flex-grow gap-8 overflow-hidden">
+<!-- Left Column: Problem & Analysis -->
+<div class="w-5/12 flex flex-col h-full">
+<h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center flex-shrink-0">
+<i class="fas fa-search-plus mr-2 text-brand"></i>
+                    데이터 분석 및 질문
+                </h3>
+<div class="analysis-box flex-grow">
+<h4 class="font-bold text-compact-lg text-gray-800 mb-3">"왜 train.csv를 Knowledge Base로?"</h4>
+<p class="text-gray-600 text-compact-sm mb-4 leading-relaxed">
+                        기존 KMMLU와 다른 점을 발견하여, <br/>LLM을 활용해 train.csv와 dev.csv를 분석했습니다.
+                    </p>
+<div class="bg-white p-3 rounded-lg border border-gray-200 mb-4">
+<div class="flex items-center mb-1">
+<i class="fas fa-exclamation-circle text-orange-500 mr-2"></i>
+<span class="font-bold text-gray-700 text-compact-sm">분석 결과 발견점</span>
+</div>
+<p class="text-compact-xs text-gray-600">
+                        train.csv와 dev.csv에 <span class="font-bold text-brand">완전히 동일한 문제가 3개 존재함을 확인했습니다.
+                    </p>
+</div>
+<div class="flex justify-center mt-2 flex-shrink-0">
+<svg width="280" height="160" viewBox="0 0 280 160">
+<defs>
+<!-- Train circle shape -->
+<clipPath id="trainClip">
+<circle cx="85" cy="80" r="70"/>
+</clipPath>
+<!-- Dev circle shape -->
+<clipPath id="devClip">
+<circle cx="195" cy="80" r="70"/>
+</clipPath>
+</defs>
+<!-- Train Circle (Theme Light) -->
+<circle cx="85" cy="80" r="70" fill="rgba(247, 47, 8, 0.05)" stroke="rgba(247, 47, 8, 0.3)" stroke-width="2"/>
+<!-- Dev Circle (Theme Light) -->
+<circle cx="195" cy="80" r="70" fill="rgba(247, 47, 8, 0.05)" stroke="rgba(247, 47, 8, 0.3)" stroke-width="2"/>
+<!-- Overlap area (Theme Strong) -->
+<circle cx="195" cy="80" r="70" fill="rgba(247, 47, 8, 0.6)" clip-path="url(#trainClip)" stroke="none"/>
+<!-- Labels -->
+<text x="85" y="80" font-size="16" font-weight="800" fill="#4B5563" text-anchor="middle" dominant-baseline="middle">Train</text>
+<text x="195" y="80" font-size="16" font-weight="800" fill="#4B5563" text-anchor="middle" dominant-baseline="middle">Dev</text>
+</svg>
+</div>
+</div>
+</div>
+<!-- Right Column: Hypothesis & Rationale -->
+<div class="w-7/12 flex flex-col h-full">
+<h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center flex-shrink-0">
+<i class="fas fa-flask mr-2 text-brand"></i>
+                    가설 수립 및 근거
+                </h3>
+<!-- Hypothesis -->
+<div class="hypothesis-container flex-shrink-0">
+<i class="fas fa-quote-right quote-icon"></i>
+<p class="text-brand font-bold text-xs mb-1 uppercase tracking-wide">Hypothesis</p>
+<p class="text-compact-lg font-bold text-gray-800 leading-snug">
+                        "train.csv를 RAG Knowledge Base로 활용하면,<br/>
+                        dev.csv 성능 향상을 이끌어낼 수 있을 것이다."
+                    </p>
+</div>
+<!-- Rationales -->
+<div class="flex-grow overflow-y-auto">
+<div class="rationale-item">
+<div class="rationale-num">1</div>
+<div>
+<h5 class="font-bold text-gray-800 text-compact-sm">겹치는 문제 존재</h5>
+<p class="text-compact-xs text-gray-500 mt-0.5">동일/유사 문제는 Retrieval 시 직접적인 정답 힌트로 작용</p>
+</div>
+</div>
+<div class="rationale-item">
+<div class="rationale-num">2</div>
+<div>
+<h5 class="font-bold text-gray-800 text-compact-sm">동일 출처 패턴 (KMMLU)</h5>
+<p class="text-compact-xs text-gray-500 mt-0.5">겹치지 않는 문제라도 문체나 논리 구조가 유사하여 Few-shot 효과 기대</p>
+</div>
+</div>
+<div class="rationale-item">
+<div class="rationale-num">3</div>
+<div>
+<h5 class="font-bold text-gray-800 text-compact-sm">원본과 다른 문서 활용 의도 추정</h5>
+<p class="text-compact-xs text-gray-500 mt-0.5">train.csv를 Vector DB로 사용하라는 의도로 해석</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Flow Diagram -->
+<div class="flow-wrapper">
+<div class="flow-container w-full" style="justify-content: space-evenly; background: rgba(247, 47, 8, 0.03);">
+        <div class="flex flex-col items-center group">
+            <span class="text-gray-500 font-bold mb-2 text-sm tracking-wide">NoRAG (프롬프트만 적용)</span>
+            <div class="bg-white w-32 py-3 rounded-xl border border-gray-200 shadow-sm flex flex-col items-center transition-transform group-hover:scale-105">
+                <span class="text-2xl font-bold text-gray-400">47.88%</span>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-center px-4 pb-2">
+            <span class="text-brand font-bold text-xs mb-1">Vector DB 적용</span>
+            <div class="flex items-center">
+                <div class="h-0.5 w-16 bg-brand bg-opacity-30"></div>
+                <i class="fas fa-chevron-right text-brand text-lg mx-2"></i>
+                <div class="h-0.5 w-16 bg-brand bg-opacity-30"></div>
+            </div>
+            <div class="mt-2 bg-brand text-white text-sm px-3 py-1 rounded-full font-bold shadow-md animate-pulse">
+                +3.47%p
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center group">
+            <span class="text-brand font-bold mb-2 text-sm tracking-wide">RAG 적용(Only Vector)</span>
+            <div class="bg-white w-40 py-4 rounded-xl border-2 border-brand shadow-lg flex flex-col items-center relative transform transition-transform group-hover:-translate-y-1">
+                <span class="text-3xl font-extrabold text-brand">51.35%</span>
+                <div class="absolute -top-3 -right-3 bg-brand text-white w-8 h-8 flex items-center justify-center rounded-full shadow-md border-2 border-white">
+                    <i class="fas fa-arrow-up"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script src="navigation.js"></script>
+</body>
+</html>

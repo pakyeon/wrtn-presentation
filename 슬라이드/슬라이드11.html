@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>인사이트</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="../Pretendard-1.3.9/web/static/pretendard.css" rel="stylesheet"/>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Pretendard', sans-serif;
+    }
+    .slide {
+        width: 1280px;
+        height: 720px;
+        background-color: #FFFFFF;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    .accent-shape {
+        position: absolute;
+        top: -200px;
+        right: -200px;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background-color: rgba(247, 47, 8, 0.05); /* Solid color with alpha instead of gradient */
+        z-index: 0;
+    }
+    .content-container {
+        position: relative;
+        z-index: 10;
+        padding: 2rem 3rem; /* Reduced padding from 3rem 4rem */
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .header-bar {
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+    }
+    .main-title {
+        font-family: 'Pretendard', sans-serif;
+        font-weight: 900;
+        font-size: 2.5rem; /* Reduced from 3rem */
+        color: #333333;
+        line-height: 1.2;
+        letter-spacing: -1px;
+        margin-bottom: 0.4rem;
+    }
+    .sub-title {
+        font-size: 1rem; /* Reduced from 1.2rem */
+        color: #666;
+        font-weight: 500;
+        margin-bottom: 1.5rem; /* Reduced margin */
+    }
+    
+    /* Comparison Grid */
+    .comparison-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem; /* Reduced gap */
+        flex-grow: 1;
+        margin-bottom: 1.5rem; /* Reduced margin */
+    }
+    
+    /* Insight Cards */
+    .insight-card {
+        border-radius: 16px;
+        padding: 1.5rem; /* Reduced from 2rem */
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+        transition: transform 0.3s ease;
+    }
+    .insight-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    /* Positive Card */
+    .insight-card.positive {
+        background-color: #F0F9FF; /* Solid color, removed gradient */
+        border: 2px solid #BAE6FD;
+        box-shadow: 0 6px 15px rgba(14, 165, 233, 0.1);
+    }
+    .insight-card.negative {
+        background-color: #FFF1F2; /* Solid color, removed gradient */
+        border: 2px solid #FECDD3;
+        box-shadow: 0 6px 15px rgba(225, 29, 72, 0.1);
+    }
+    
+    .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem; /* Reduced margin */
+        padding-bottom: 0.8rem;
+        border-bottom: 2px dashed rgba(0,0,0,0.05);
+    }
+    
+    .card-icon-wrapper {
+        width: 40px; /* Reduced size */
+        height: 40px; /* Reduced size */
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem; /* Reduced size */
+        margin-right: 0.8rem;
+    }
+    
+    .positive .card-icon-wrapper {
+        background-color: #0EA5E9;
+        color: white;
+    }
+    .negative .card-icon-wrapper {
+        background-color: #E11D48;
+        color: white;
+    }
+    
+    .card-title {
+        font-size: 1.25rem; /* Reduced size */
+        font-weight: 800;
+        color: #333;
+    }
+    .positive .card-title { color: #0369A1; }
+    .negative .card-title { color: #BE123C; }
+    
+    .insight-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-grow: 1; /* Fill the remaining space in the card */
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem; /* Even spacing between items */
+    }
+    .insight-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0; /* Remove margin in favor of gap */
+        flex: 1; /* Each item grows to fill the space equally */
+        font-size: 0.95rem; /* Reduced size from 1rem */
+        font-weight: 500;
+        color: #4B5563;
+        background-color: rgba(255,255,255,0.6);
+        padding: 0.5rem 0.8rem; /* Reduced padding */
+        border-radius: 8px;
+    }
+    
+    .item-icon {
+        margin-right: 10px;
+        font-size: 1rem;
+    }
+    .positive .item-icon { color: #0284C7; }
+    .negative .item-icon { color: #E11D48; }
+    
+    /* Bottom Message Box */
+    .message-box {
+        background-color: #1F2937;
+        color: white;
+        border-radius: 12px;
+        padding: 1rem 1.5rem; /* Reduced padding */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        margin-top: auto;
+    }
+    .message-box::before {
+        content: '"';
+        position: absolute;
+        top: -15px;
+        left: 10px;
+        font-size: 6rem;
+        font-family: serif;
+        opacity: 0.1;
+        color: white;
+        line-height: 1;
+    }
+    .message-text {
+        font-size: 1.2rem; /* Reduced size */
+        font-weight: 300;
+        text-align: center;
+        z-index: 1;
+        line-height: 1.4;
+    }
+    .message-highlight {
+        font-weight: 700;
+        color: #38BDF8; /* Light blue highlight */
+        padding: 0 4px;
+        border-bottom: 2px solid #38BDF8;
+    }
+    .message-warn {
+        font-weight: 700;
+        color: #FB7185; /* Light red highlight */
+        padding: 0 4px;
+        border-bottom: 2px solid #FB7185;
+    }
+
+
+    .text-brand { color: rgba(247, 47, 8, 0.9); }
+    .bg-brand { background-color: rgba(247, 47, 8, 0.9); }
+    .border-brand { border-color: rgba(247, 47, 8, 0.7); }
+    .bg-brand-light { background-color: rgba(247, 47, 8, 0.1); }
+    .text-brand-light { color: rgba(247, 47, 8, 0.6); }
+</style>
+</head>
+<body>
+<div class="slide">
+<div class="accent-shape"></div>
+<div class="content-container">
+<!-- Header -->
+<div class="header-bar">
+<div class="flex items-center text-brand">
+<i class="fas fa-lightbulb mr-2"></i>
+<span class="font-bold tracking-wide text-sm">INSIGHTS</span>
+</div>
+</div>
+<!-- Title -->
+<div>
+<h1 class="main-title">인사이트</h1>
+<p class="sub-title">"방법 자체가 틀린 것이 아니라, <strong style="color: rgba(247, 47, 8, 0.9);">접근 방식의 문제</strong>일 수 있습니다."</p>
+</div>
+<!-- Comparison Grid -->
+<div class="comparison-grid">
+<!-- Positive Column -->
+<div class="insight-card positive">
+<div class="card-header">
+<div class="card-icon-wrapper">
+<i class="fas fa-check"></i>
+</div>
+<div class="card-title">효과적이었던 것</div>
+</div>
+<ul class="insight-list">
+<li class="insight-item">
+<i class="fas fa-file-csv item-icon"></i>
+<p><strong>Train Data 활용:</strong> 학습 데이터를 Knowledge Base로 활용</p>
+</li>
+<li class="insight-item">
+<i class="fas fa-search item-icon"></i>
+<p><strong>검색 방법:</strong> Hybrid Search + WRRF 조합</p>
+</li>
+<li class="insight-item">
+<i class="fas fa-sliders-h item-icon"></i>
+<p><strong>파라미터 튜닝:</strong> 검색 가중치 최적화 (0.7 : 0.3)</p>
+</li>
+</ul>
+</div>
+<!-- Negative Column -->
+<div class="insight-card negative">
+<div class="card-header">
+<div class="card-icon-wrapper">
+<i class="fas fa-exclamation-triangle"></i>
+</div>
+<div class="card-title">적절치 않았던 것</div>
+</div>
+<ul class="insight-list">
+<li class="insight-item">
+<i class="fas fa-eraser item-icon"></i>
+<p><strong>Context 형식 변경:</strong> 선택지 제거 시 비교 정보 부족으로 성능 하락</p>
+</li>
+<li class="insight-item">
+<i class="fas fa-brain item-icon"></i>
+<p><strong>Chain-of-Thought:</strong> sLLM 특성상 적절하지 않음</p>
+</li>
+<li class="insight-item">
+<i class="fas fa-globe item-icon"></i>
+<p><strong>웹 검색(Tavily):</strong> 단순 적용 시 현 도메인에서는 Noise로 작용, 고도화 필요</p>
+</li>
+<li class="insight-item">
+<i class="fas fa-file-contract item-icon"></i>
+<p><strong>법령 원문 추가:</strong> 일부 해결한 문제가 있으나, <br/>Context 희석 문제로 성능 저하 이후 고도화 필요</p>
+</li>
+</ul>
+</div>
+</div>
+<!-- Bottom Message -->
+<div class="message-box">
+<p class="message-text">
+                실패한 방법론(CoT, RAG 등) 자체가 틀린 것이 아닐 수 있다.<br/>
+                하지만 짧은 기간에서는 단순한 구조를 바탕으로,<br/>
+                <span class="message-highlight">기본적인 RAG 파이프라인을 구축하고 조정하는 것이</span> 성능 향상을 이끌어냈습니다.
+            </p>
+</div>
+</div>
+</div>
+<script src="navigation.js"></script>
+</body>
+</html>
